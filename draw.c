@@ -56,19 +56,3 @@ void	draw_julia(t_fractal *fractal)
 		fractal->y = 0;
 	}
 }
-
-void	draw_burning_ship(t_fractal *fractal)
-{
-	fractal->x = 0;
-	fractal->y = 0;
-	while (fractal->x < SIZE)
-	{
-		while (fractal->y < SIZE)
-		{
-			calculate_burning_ship(fractal);
-			fractal->y++;
-		}
-		fractal->x++;
-		fractal->y = 0;
-	}
-}
