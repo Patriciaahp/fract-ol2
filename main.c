@@ -1,13 +1,6 @@
 
 #include "fractol.h"
 
-/**
- * @brief    Iterates through the pixels of the window and calls the
- * appropriate function to draw the fractal.
- *
- * @param    fractal   The fractal structure.
- * @param    query     The name of the fractal to draw.
- */
 int	draw_fractal(t_fractal *fractal, char *query)
 {
 	if (ft_strncmp(query, "mandel", 7) == 0)

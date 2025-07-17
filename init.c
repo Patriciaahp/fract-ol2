@@ -1,11 +1,6 @@
 
 #include "fractol.h"
 
-/**
- * @brief    Initializes the fractal structure to the default values.
- *
- * @param    fractal   The fractal structure.
- */
 void	init_fractal(t_fractal *fractal)
 {
 	fractal->x = 0;
@@ -17,11 +12,6 @@ void	init_fractal(t_fractal *fractal)
 	fractal->max_iterations = 42;
 }
 
-/**
- * @brief    Initializes the MiniLibX variables.
- *
- * @param    fractal
- */
 void	init_mlx(t_fractal *fractal)
 {
 	fractal->mlx = mlx_init();

@@ -10,7 +10,6 @@
 # define THREAD_WIDTH 7
 # define THREAD_NUMBER 100
 
-// KEYCODES
 # define ESC 53
 # define UP 126
 # define DOWN 125
@@ -23,7 +22,6 @@
 # define P 35
 # define M 46
 
-// MOUSECODES
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
 
@@ -50,33 +48,23 @@ typedef struct s_fractal
 	int		max_iterations;
 }			t_fractal;
 
-// utils.c
 void		put_color_to_pixel(t_fractal *fractal, int x, int y, int colour);
 int			exit_fractal(t_fractal *fractal);
 double		generate_random_c(void);
 void		change_iterations(t_fractal *fractal, int key_code);
 
-// init.c
 void		init_fractal(t_fractal *fractal);
 void		init_mlx(t_fractal *fractal);
 
-// mandelbrot.c
 void		calculate_mandelbrot(t_fractal *fractal);
 
-// julia.c
 void		calculate_julia(t_fractal *fractal);
 
-// burning_ship.c
-void		calculate_burning_ship(t_fractal *fractal);
-
-// main.c
 int			draw_fractal(t_fractal *fractal, char *query);
 
-// mouse_and_keys.c
 int			key_hook(int key_code, t_fractal *fractal);
 int			mouse_hook(int mouse_code, int x, int y, t_fractal *fractal);
 
-// draw.c
 void		*draw_mandelbrot(void *fractal_void);
 void		draw_julia(t_fractal *fractal);
 void		draw_burning_ship(t_fractal *fractal);

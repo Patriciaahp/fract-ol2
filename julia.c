@@ -1,16 +1,6 @@
 
 #include "fractol.h"
 
-/**
- * @brief    Calculates the Julia fractal for one pixel.
- *
- * The z variables are set to the coordinates of the pixel.
- *
- * The c constants are set to the provided values, as every value produces
- * a different fractal.
- *
- * @param    fractal
- */
 void	calculate_julia(t_fractal *fractal)
 {
 	int		i;

@@ -1,28 +1,6 @@
 
 #include "fractol.h"
 
-/**
- * @brief    Calculates the Mandelbrot fractal for one pixel.
- *
- * The z variables are set to 0, the beginning of the suite.
- *
- * The c constants are set to the coordinates of the pixel.
- *
- * For performance reasons, we use the (x * x) calculation instead of the
- * pow(x, 2) function.
- *
- * The exit conditions of the loop are the following:
- * - The absolute value of z is greater than the system's max values, then
- *   we can assure that the suite will diverge to infinity.
- * - The number of iterations is too high, then we can assure that
- *   the suite will stay stuck in an infinite loop.
- *
- * If the the suite diverges, we color it and multiply the color by the
- * number of iterations to make the mathematical depths more clear to the
- * eye.
- *
- * @param    fractal
- */
 void	calculate_mandelbrot(t_fractal *fractal)
 {
 	int		i;
