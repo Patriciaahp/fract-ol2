@@ -3,7 +3,7 @@
 
 int	draw_fractal(t_fractal *fractal, char *query)
 {
-	if (ft_strncmp(query, "mandel", 7) == 0)
+	if (ft_strncmp(query, "mandelbrot", 11) == 0)
 		draw_mandelbrot(fractal);
 	else if (ft_strncmp(query, "julia", 6) == 0)
 	{
@@ -16,7 +16,7 @@ int	draw_fractal(t_fractal *fractal, char *query)
 	}
 	else
 	{
-		ft_putendl_fd("Available fractals: mandel, julia", 1);
+		ft_putendl_fd("Available fractals: mandelbrot, julia", 1);
 		exit_fractal(fractal);
 	}
 	mlx_put_image_to_window(fractal->mlx, fractal->window, fractal->image, 0,
