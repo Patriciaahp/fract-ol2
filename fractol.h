@@ -67,6 +67,6 @@ int			mouse_hook(int mouse_code, int x, int y, t_fractal *fractal);
 
 void		*draw_mandelbrot(void *fractal_void);
 void		draw_julia(t_fractal *fractal);
-void		draw_burning_ship(t_fractal *fractal);
+
 
 #endif

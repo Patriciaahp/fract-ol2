@@ -18,6 +18,10 @@ int	exit_fractal(t_fractal *fractal)
 	exit(1);
 	return (0);
 }
+double	generate_random_c(void)
+{
+	return (((double)rand() / RAND_MAX) * 3.0 - 1.5);
+}
 
 void	change_iterations(t_fractal *fractal, int key_code)
 {
