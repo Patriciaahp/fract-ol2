@@ -1,33 +1,33 @@
 #include "fractol.h"
 
-void draw_mandelbrot(t_fractal *fractal)
+void draw_mandelbrot(t_fractal *f)
 {
-	int x, y, iter, color;
+	int x, y, iter;
 	double zx, zy, tmp, cx, cy;
 
 	y = 0;
-	while (y < fractal->height)
+	while (y < f->height)
 	{
 		x = 0;
-		while (x < fractal->width)
+		while (x < f->width)
 		{
-			cx = fractal->min_re + x * (fractal->max_re - fractal->min_re) / fractal->width;
-			cy = fractal->min_im + y * (fractal->max_im - fractal->min_im) / fractal->height;
+			cx = f->min_re + x * (f->max_re - f->min_re) / f->width;
+			cy = f->min_im + y * (f->max_im - f->min_im) / f->height;
 			zx = 0;
 			zy = 0;
 			iter = 0;
-			while (zx * zx + zy * zy < 4 && iter < fractal->max_iter)
+			while (zx * zx + zy * zy < 4 && iter < f->max_iter)
 			{
 				tmp = zx * zx - zy * zy + cx;
 				zy = 2 * zx * zy + cy;
 				zx = tmp;
 				iter++;
 			}
-			color = get_color(iter, fractal->max_iter, fractal->color_shift);
-			((int *)fractal->image_addr)[y * fractal->width + x] = color;
+			int color = (iter == f->max_iter) ? 0x000000 : iter * 0x001122;
+			((int *)f->image_addr)[y * f->width + x] = color;
 			x++;
 		}
 		y++;
 	}
-	mlx_put_image_to_window(fractal->mlx, fractal->window, fractal->img, 0, 0);
+	mlx_put_image_to_window(f->mlx, f->window, f->img, 0, 0);
 }

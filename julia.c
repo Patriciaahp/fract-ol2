@@ -1,31 +1,31 @@
 #include "fractol.h"
 
-void draw_julia(t_fractal *fractal)
+void draw_julia(t_fractal *f)
 {
-	int x, y, iter, color;
+	int x, y, iter;
 	double zx, zy, tmp;
 
 	y = 0;
-	while (y < fractal->height)
+	while (y < f->height)
 	{
 		x = 0;
-		while (x < fractal->width)
+		while (x < f->width)
 		{
-			zx = fractal->min_re + x * (fractal->max_re - fractal->min_re) / fractal->width;
-			zy = fractal->min_im + y * (fractal->max_im - fractal->min_im) / fractal->height;
+			zx = f->min_re + x * (f->max_re - f->min_re) / f->width;
+			zy = f->min_im + y * (f->max_im - f->min_im) / f->height;
 			iter = 0;
-			while ((zx * zx + zy * zy) <= 4 && iter < fractal->max_iter)
+			while ((zx * zx + zy * zy) < 4 && iter < f->max_iter)
 			{
-				tmp = zx * zx - zy * zy + fractal->c_re;
-				zy = 2.0 * zx * zy + fractal->c_im;
+				tmp = zx * zx - zy * zy + f->c_re;
+				zy = 2 * zx * zy + f->c_im;
 				zx = tmp;
 				iter++;
 			}
-			color = get_color(iter, fractal->max_iter, fractal->color_shift);
-			((int *)fractal->image_addr)[y * fractal->width + x] = color;
+			int color = (iter == f->max_iter) ? 0x000000 : iter * 0x330033;
+			((int *)f->image_addr)[y * f->width + x] = color;
 			x++;
 		}
 		y++;
 	}
-	mlx_put_image_to_window(fractal->mlx, fractal->window, fractal->img, 0, 0);
+	mlx_put_image_to_window(f->mlx, f->window, f->img, 0, 0);
 }
