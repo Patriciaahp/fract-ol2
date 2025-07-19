@@ -6,8 +6,8 @@
 # include <mlx.h>
 # include <math.h>
 
-# define WIDTH 800
-# define HEIGHT 800
+# define WIDTH 600
+# define HEIGHT 600
 
 typedef struct s_fractal
 {

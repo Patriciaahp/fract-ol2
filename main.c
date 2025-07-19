@@ -11,8 +11,7 @@ int main(int argc, char **argv)
 		return (1);
 	}
 
-	fractal.name = argv[1];
-	init_fractal(&fractal, fractal.name);
+	init_fractal(&fractal, argv[1]);
 	init_mlx(&fractal);
 
 	mlx_key_hook(fractal.window, key_hook, &fractal);
@@ -20,7 +19,6 @@ int main(int argc, char **argv)
 	mlx_hook(fractal.window, 17, 0, exit_fractal, &fractal);
 
 	draw_fractal(&fractal, fractal.name);
-
 	mlx_loop(fractal.mlx);
 	return (0);
 }
