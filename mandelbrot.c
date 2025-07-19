@@ -11,8 +11,8 @@ void draw_mandelbrot(t_fractal *fractal)
 		x = 0;
 		while (x < fractal->width)
 		{
-			cx = (x - fractal->width / 2) / (0.5 * fractal->zoom * fractal->width) + fractal->offset_x;
-			cy = (y - fractal->height / 2) / (0.5 * fractal->zoom * fractal->height) + fractal->offset_y;
+			cx = fractal->min_re + x * (fractal->max_re - fractal->min_re) / fractal->width;
+			cy = fractal->min_im + y * (fractal->max_im - fractal->min_im) / fractal->height;
 			zx = 0;
 			zy = 0;
 			iter = 0;

@@ -18,10 +18,6 @@ void init_fractal(t_fractal *fractal, char *name)
 	fractal->min_im = -2.0;
 	fractal->max_im = 2.0;
 
-	fractal->zoom = 1.0;
-	fractal->offset_x = 0.0;
-	fractal->offset_y = 0.0;
-
 	fractal->max_iter = 100;
 	fractal->color_shift = 0;
 

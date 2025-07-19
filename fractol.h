@@ -27,10 +27,6 @@ typedef struct s_fractal
 	double	min_im;
 	double	max_im;
 
-	double	zoom;
-	double	offset_x;
-	double	offset_y;
-
 	int		max_iter;
 	int		color_shift;
 
