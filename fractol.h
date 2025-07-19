@@ -1,72 +1,58 @@
 #ifndef FRACTOL_H
-# define FRACTOL_H
+#define FRACTOL_H
 
-# include "libft/libft.h"
-# include "minilibx-linux/mlx.h"
+# include <stdlib.h>
+# include <unistd.h>
+# include <mlx.h>
 # include <math.h>
-# include <pthread.h>
 
-# define SIZE 700
-# define THREAD_WIDTH 7
-# define THREAD_NUMBER 100
-
-# define ESC 53
-# define UP 126
-# define DOWN 125
-# define LEFT 123
-# define RIGHT 124
-# define R 15
-# define C 8
-# define H 4
-# define J 38
-# define P 35
-# define M 46
-
-# define SCROLL_UP 4
-# define SCROLL_DOWN 5
+# define WIDTH 800
+# define HEIGHT 800
 
 typedef struct s_fractal
 {
 	void	*mlx;
 	void	*window;
-	void	*image;
-	void	*pointer_to_image;
+	void	*img;
+	char	*image_addr;
 	int		bits_per_pixel;
-	int		size_line;
+	int		line_length;
 	int		endian;
-	int		x;
-	int		y;
-	double	zx;
-	double	zy;
-	double	cx;
-	double	cy;
-	int		color;
+
+	int		width;
+	int		height;
+
+	double	min_re;
+	double	max_re;
+	double	min_im;
+	double	max_im;
+
+	double	zoom;
 	double	offset_x;
 	double	offset_y;
-	double	zoom;
+
+	int		max_iter;
+	int		color_shift;
+
+	double	c_re;
+	double	c_im;
+
 	char	*name;
-	int		max_iterations;
-}			t_fractal;
+}	t_fractal;
 
-void		put_color_to_pixel(t_fractal *fractal, int x, int y, int colour);
-int			exit_fractal(t_fractal *fractal);
-double		generate_random_c(void);
-void		change_iterations(t_fractal *fractal, int key_code);
+void	draw_fractal(t_fractal *fractal, char *name);
+void	draw_mandelbrot(t_fractal *fractal);
+void	draw_julia(t_fractal *fractal);
+void	init_fractal(t_fractal *fractal, char *name);
+void	init_mlx(t_fractal *fractal);
 
-void		init_fractal(t_fractal *fractal);
-void		init_mlx(t_fractal *fractal);
+int		exit_fractal(t_fractal *fractal);
+int		key_hook(int keycode, t_fractal *fractal);
+int		mouse_hook(int button, int x, int y, t_fractal *fractal);
+int		get_color(int iter, int max_iter, int shift);
 
-void		calculate_mandelbrot(t_fractal *fractal);
-
-void		calculate_julia(t_fractal *fractal);
-
-int			draw_fractal(t_fractal *fractal, char *query);
-
-int			key_hook(int key_code, t_fractal *fractal);
-int			mouse_hook(int mouse_code, int x, int y, t_fractal *fractal);
-
-void		*draw_mandelbrot(void *fractal_void);
-void		draw_julia(t_fractal *fractal);
-
+void	zoom(t_fractal *fractal, double zoom_factor, int x, int y);
+void	set_random_julia(t_fractal *fractal);
+void	change_iterations(t_fractal *fractal, int change);
 
 #endif

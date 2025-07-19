@@ -1,38 +1,15 @@
-
 #include "fractol.h"
+#include "libft.h"
 
-void	*draw_mandelbrot(void *fractal_void)
+void draw_fractal(t_fractal *fractal, char *name)
 {
-	t_fractal	*fractal;
-
-	fractal = (t_fractal *)fractal_void;
-	fractal->x = 0;
-	fractal->y = 0;
-	while (fractal->x < SIZE)
+	if (!ft_strncmp(name, "mandelbrot", 11))
+		draw_mandelbrot(fractal);
+	else if (!ft_strncmp(name, "julia", 5))
+		draw_julia(fractal);
+	else
 	{
-		while (fractal->y < SIZE)
-		{
-			calculate_mandelbrot(fractal);
-			fractal->y++;
-		}
-		fractal->x++;
-		fractal->y = 0;
-	}
-	return (NULL);
-}
-
-void	draw_julia(t_fractal *fractal)
-{
-	fractal->x = 0;
-	fractal->y = 0;
-	while (fractal->x < SIZE)
-	{
-		while (fractal->y < SIZE)
-		{
-			calculate_julia(fractal);
-			fractal->y++;
-		}
-		fractal->x++;
-		fractal->y = 0;
+		ft_putendl_fd("Invalid fractal name", 2);
+		exit(1);
 	}
 }

@@ -1,30 +1,33 @@
-
 #include "fractol.h"
 
-void	calculate_mandelbrot(t_fractal *fractal)
+void draw_mandelbrot(t_fractal *fractal)
 {
-	int		i;
-	double	x_temp;
+	int x, y, iter, color;
+	double zx, zy, tmp, cx, cy;
 
-	fractal->name = "mandelbrot";
-	i = 0;
-	fractal->zx = 0.0;
-	fractal->zy = 0.0;
-	fractal->cx = (fractal->x / fractal->zoom) + fractal->offset_x;
-	fractal->cy = (fractal->y / fractal->zoom) + fractal->offset_y;
-	while (++i < fractal->max_iterations)
+	y = 0;
+	while (y < fractal->height)
 	{
-		x_temp = fractal->zx * fractal->zx - fractal->zy * fractal->zy
-			+ fractal->cx;
-		fractal->zy = 2. * fractal->zx * fractal->zy + fractal->cy;
-		fractal->zx = x_temp;
-		if (fractal->zx * fractal->zx + fractal->zy
-			* fractal->zy >= __DBL_MAX__)
-			break ;
+		x = 0;
+		while (x < fractal->width)
+		{
+			cx = (x - fractal->width / 2) / (0.5 * fractal->zoom * fractal->width) + fractal->offset_x;
+			cy = (y - fractal->height / 2) / (0.5 * fractal->zoom * fractal->height) + fractal->offset_y;
+			zx = 0;
+			zy = 0;
+			iter = 0;
+			while (zx * zx + zy * zy < 4 && iter < fractal->max_iter)
+			{
+				tmp = zx * zx - zy * zy + cx;
+				zy = 2 * zx * zy + cy;
+				zx = tmp;
+				iter++;
+			}
+			color = get_color(iter, fractal->max_iter, fractal->color_shift);
+			((int *)fractal->image_addr)[y * fractal->width + x] = color;
+			x++;
+		}
+		y++;
 	}
-	if (i == fractal->max_iterations)
-		put_color_to_pixel(fractal, fractal->x, fractal->y, 0x000000);
-	else
-		put_color_to_pixel(fractal, fractal->x, fractal->y, (fractal->color
-				* i));
+	mlx_put_image_to_window(fractal->mlx, fractal->window, fractal->img, 0, 0);
 }

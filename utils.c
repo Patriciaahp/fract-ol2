@@ -1,38 +1,44 @@
-
 #include "fractol.h"
-
-void	put_color_to_pixel(t_fractal *fractal, int x, int y, int color)
-{
-	int	*buffer;
-
-	buffer = fractal->pointer_to_image;
-	buffer[(y * fractal->size_line / 4) + x] = color;
-}
 
 int	exit_fractal(t_fractal *fractal)
 {
-	mlx_destroy_image(fractal->mlx, fractal->image);
-	mlx_destroy_window(fractal->mlx, fractal->window);
-	free(fractal->mlx);
-	free(fractal);
-	exit(1);
+	if (fractal->window)
+		mlx_destroy_window(fractal->mlx, fractal->window);
+	exit(0);
 	return (0);
 }
-double	generate_random_c(void)
+
+int	get_color(int iter, int max_iter, int shift)
 {
-	return (((double)rand() / RAND_MAX) * 3.0 - 1.5);
+	if (iter == max_iter)
+		return (0x000000);
+	return ((iter * 0xABCDEF >> shift) & 0xFFFFFF);
 }
 
-void	change_iterations(t_fractal *fractal, int key_code)
+void	zoom(t_fractal *fractal, double zoom_factor, int x, int y)
 {
-	if (key_code == M)
-	{
-		if (fractal->max_iterations > 42)
-			fractal->max_iterations -= 42;
-	}
-	else if (key_code == P)
-	{
-		if (fractal->max_iterations < 4200)
-			fractal->max_iterations += 42;
-	}
+	double	mouse_re = fractal->min_re + (double)x / fractal->width
+		* (fractal->max_re - fractal->min_re);
+	double	mouse_im = fractal->min_im + (double)y / fractal->height
+		* (fractal->max_im - fractal->min_im);
+	double	range_re = (fractal->max_re - fractal->min_re) * zoom_factor;
+	double	range_im = (fractal->max_im - fractal->min_im) * zoom_factor;
+
+	fractal->min_re = mouse_re - range_re / 2;
+	fractal->max_re = mouse_re + range_re / 2;
+	fractal->min_im = mouse_im - range_im / 2;
+	fractal->max_im = mouse_im + range_im / 2;
+}
+
+void	set_random_julia(t_fractal *fractal)
+{
+	fractal->c_re = ((double)rand() / RAND_MAX) * 2.0 - 1.0;
+	fractal->c_im = ((double)rand() / RAND_MAX) * 2.0 - 1.0;
+}
+
+void	change_iterations(t_fractal *fractal, int change)
+{
+	fractal->max_iter += change;
+	if (fractal->max_iter < 10)
+		fractal->max_iter = 10;
 }
